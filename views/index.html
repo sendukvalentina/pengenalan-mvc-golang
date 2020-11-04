@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Antrian</title>
+
+        <style>
+            .antrian {
+                height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .txt-antrian {
+                font-size: 70px;
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="antrian">
+            <span id="txt-antrian" class="txt-antrian">
+                {{ .antrian }}
+            </span>
+        </div>
+
+        <!-- The core Firebase JS SDK is always required and must be listed first-->
+        <script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-database.js"></script>
+
+        <!-- TODO: Add SDKs for Firebase products that you want to use https://firebase.google.com/docs/web/setup#available-libraries -->
+        <script>//Your web app's Firebase configuration
+            var firebaseConfig = {
+                apiKey: "AIzaSyA4ccm0xkVvsEdtK3UFnBTksSNGhSOFvYs",
+                authDomain: "golang-87440.firebaseapp.com",
+                databaseURL: "https://golang-87440.firebaseio.com",
+                projectId: "golang-87440",
+                storageBucket: "golang-87440.appspot.com",
+                messagingSenderId: "259190683049",
+                appId: "1:259190683049:web:aa0b5dcb51d45fc64780b8",
+                measurementId: "G-086W5VY0T5"
+            }
+
+            //Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+
+            var antrianRef = firebase.database().ref('antrian');
+            antrianRef('value', function(snapshot){
+                const antrian = snapshot.val()
+                const currentAntrian = antrian.find(item => item != null && item.status === false)
+
+                document.getElementById('txt-antrian').innerText = currentAntrian.id
+            });
+        </script>
+    </body>
+</html>
